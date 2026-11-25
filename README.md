@@ -77,6 +77,11 @@ A API precisa liberar a origem do front em `CORS_ORIGINS`. Se o navegador bloque
 Vercel. A URL da API vem de `lib/config.ts`; para apontar para outra, defina `NEXT_PUBLIC_API_BASE_URL` no ambiente do
 projeto na Vercel.
 
+## Como foi desenvolvido
+
+A interface foi gerada com o v0 (Vercel). A integração com a API e os ajustes seguintes foram feitos no Cursor, com o
+Claude Code (pela API da Anthropic) como motor de IA. As decisões, as revisões e a aprovação de cada mudança foram minhas.
+
 ## Limitações
 
 - `criterios.crescimento_ibcbr_pct` vem arredondado a 2 casas e o back classifica o valor bruto: um slider em 0,00 pode
