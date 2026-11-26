@@ -13,8 +13,16 @@ const errorMessages: Record<string, { title: string; detail: string }> = {
   timeout: { title: 'Tempo de resposta excedido', detail: 'A solicitação demorou mais do que o esperado.' },
 }
 
+// Mesma estrutura e mesmas classes de layout do dashboard (contêiner, topline, cabeçalho, hero e grade de gráficos),
+// com skeletons nos tamanhos reais, para a troca para os dados não dar salto.
 function LoadingScreen({ waking }: { waking: boolean }) {
-  return <main className="state-shell"><header className="state-header"><span className="brand-mark">M</span><span>MFA · Macro Brasil</span></header><section className="state-content" aria-live="polite"><span className="eyebrow">PAINEL DE LEITURA</span><h1>{waking ? 'Conectando à análise' : 'Preparando leitura macro'}</h1><p>{waking ? 'Acordando o servidor. Pode levar até ~1 minuto.' : 'Carregando indicadores e cenário.'}</p><div className="skeleton-grid" aria-hidden="true"><div className="skeleton hero-skeleton" /><div className="skeleton" /><div className="skeleton" /><div className="skeleton wide-skeleton" /></div></section></main>
+  return <main className="dashboard-shell" aria-busy="true"><div className="topline"><div className="brand-mark" aria-hidden="true">M</div><span>MACRO · BRASIL</span><span className="topline-rule" /></div>
+    <header className="page-header"><div><p className="eyebrow">PAINEL DE LEITURA</p><h1>MFA <span>—</span> AI Macro Fund Allocator</h1><p className="generated" role="status" aria-live="polite">{waking ? 'Acordando o servidor (até ~1 min)…' : 'Carregando indicadores e cenário…'}</p></div><div className="header-actions" aria-hidden="true"><span className="skeleton skeleton-switcher" /></div></header>
+    <div className="hero-band" aria-hidden="true"><div className="skeleton skeleton-hero-reading" /><div className="skeleton skeleton-hero-criteria" /></div>
+    <section className="charts-section" aria-hidden="true"><div className="section-heading chart-section-heading"><div><span className="eyebrow">SÉRIES HISTÓRICAS</span><h2>Dashboard interativo</h2></div><span className="skeleton skeleton-period" /></div>
+      <div className="macro-chart-grid">{[0, 1, 2, 3].map((index) => <div className="skeleton skeleton-chart" key={index} />)}</div>
+    </section>
+  </main>
 }
 
 function ErrorScreen({ kind, retry, detail }: { kind: string; retry: () => void; detail?: string }) {
